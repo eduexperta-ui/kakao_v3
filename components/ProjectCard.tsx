@@ -75,26 +75,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [summary, setSummary] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSummarize = async () => {
-    setLoading(true);
+    setIsLoading(true);
     try {
-      const res = await fetch('/api/summarize', {
+      // Step 1에서 만든 Express 서버의 엔드포인트로 요청을 보냅니다.
+      const response = await fetch('/api/summarize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectText: description }),
       });
-      const data = await res.json();
-      if (data.summary) {
+      
+      const data = await response.json();
+      
+      if (response.ok) {
         setSummary(data.summary);
       } else {
-        alert('요약에 실패했습니다.');
+        alert('요약 실패: ' + data.message);
       }
     } catch (error) {
-      alert('요약에 실패했습니다.');
+      console.error('Error:', error);
+      alert('서버와 통신할 수 없습니다.');
+    } finally {
+      setIsLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -136,24 +141,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               
               <button 
                 onClick={handleSummarize} 
-                disabled={loading} 
-                className="mb-5 px-4 py-2 bg-[#FEE500] hover:bg-[#FEE500]/90 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center gap-2"
+                disabled={isLoading}
+                style={{ padding: '10px 15px', backgroundColor: '#fee500', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px', color: '#000' }}
               >
-                {loading ? (
-                  <>
-                    <svg className="animate-spin h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    카카오 AI가 성과 분석 중...
-                  </>
-                ) : '🌟 카카오 AI로 3줄 요약보기'}
+                {isLoading ? '카카오 AI가 성과 분석 중...' : '🌟 카카오 AI로 3줄 요약보기'}
               </button>
 
               {summary && (
-                <div className="mb-5 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <strong className="block mb-2 text-gray-900 dark:text-white">💡 AI 핵심 성과 요약:</strong>
-                  <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap text-sm leading-relaxed">{summary}</p>
+                <div style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '8px', borderLeft: '4px solid #fee500' }}>
+                  <strong style={{ color: '#000' }}>💡 AI 핵심 성과 요약:</strong>
+                  <p style={{ whiteSpace: 'pre-wrap', marginTop: '10px', color: '#333' }}>{summary}</p>
                 </div>
               )}
 
