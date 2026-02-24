@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>김태진 | 준비된 테크 교육 전문가 </title>
+    <meta name="title" content="김태진 | 기술 공유와 성장의 선순환을 만드는 시스템 빌더" />
+    <meta name="description" content="데이터와 시스템으로 성장을 만들어내는 Tech 교육 빌더 김태진의 포트폴리오입니다." />
+
+    <!-- Open Graph / Facebook / KakaoTalk -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tj-portfolio.vercel.app/" />
+    <meta property="og:title" content="김태진 | 기술 공유와 성장의 선순환을 만드는 시스템 빌더" />
+    <meta property="og:description" content="데이터와 시스템으로 성장을 만들어내는 Tech 교육 빌더 김태진의 포트폴리오입니다." />
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1Ng20CTgKO4jInaEUFAbQO6JWneC5XQx3" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://tj-portfolio.vercel.app/" />
+    <meta property="twitter:title" content="김김태진 | 기술 공유와 성장의 선순환을 만드는 시스템 빌더" />
+    <meta property="twitter:description" content="데이터와 시스템으로 성장을 만들어내는 Tech 교육 빌더 김태진의 포트폴리오입니다." />
+    <meta property="twitter:image" content="https://lh3.googleusercontent.com/d/1Ng20CTgKO4jInaEUFAbQO6JWneC5XQx3" />
+
+    <script>
+      (function() {
+        let theme;
+        try {
+          // Resetting key to force dark mode default for returning users
+          theme = localStorage.getItem('portfolio_theme');
+        } catch (e) { }
+        
+        // 사용자가 명시적으로 설정한 값이 없으면 'dark' 모드로 시작 (개발자 포트폴리오 권장)
+        if (!theme) {
+          theme = 'dark';
+        }
+        
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: '#FEE500', // Kakao Yellow
+            },
+            fontFamily: {
+              sans: ['Kakao', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react-dom": "https://esm.sh/react-dom@^19.1.1"
+  }
+}
+</script>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    html {
+        /* Handle fixed header offset (20rem = 80px) */
+        scroll-padding-top: 5rem;
+    }
+    body, button, a {
+      cursor: none;
+    }
+    /* Webkit scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #FEE500; /* Kakao Yellow */
+      border-radius: 10px;
+      border: 2px solid #f9fafb; /* gray-50 */
+    }
+    html.dark ::-webkit-scrollbar-thumb {
+      border-color: #000; /* black */
+      background-color: #FEE500;
+    }
+  </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-black dark:text-gray-300 transition-colors duration-300 font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
